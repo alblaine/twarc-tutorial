@@ -14,43 +14,60 @@ collect users, trends and hydrate tweet ids.
 twarc was developed as part of the [Documenting the Now](http://www.docnow.io)
 project which was funded by the [Mellon Foundation](https://mellon.org/).
 
-## Step 1: Create a Github Account and fork this repository
-After you create your own Github account, fork this repository into your account by clicking the **Fork** button
+## Step 1: Download this Repository
+Click on the **Clone or Download** button. Select **Download Zip**.
+
+Unzip the directory on your computer. Move this directory to your Documents folder.
+
+You should now have a folder on your Documents directory called twarc-tutorial-master.
+
 
 ## Step 2: Create a Twitter Account and and Register an Application
 
-You will need a Twitter account and a registered Twitter application at [apps.twitter.com](http://apps.twitter.com). 
+You will need a Twitter account and a registered Twitter application at [apps.twitter.com](http://apps.twitter.com).
 
 * Sign in to [apps.twitter.com](http://apps.twitter.com) with your Twitter Account.
 * Click **Create New App** button
 * Give your App a unique title and write an concise and honest description about what it is.
 * Include a link where you can lean more about your app. Use can use the URL to your twarc tutorial repo that you forked. Ex: http://github.com/YOURUSERNAME/twarc-tutorial
 * Leave the Callback URL window empty.
-* Make sure to read the [Twitter Developer Terms](https://developer.twitter.com/en/developer-terms/agreement-and-policy) before agreeing to them. 
+* Make sure to read the [Twitter Developer Terms](https://developer.twitter.com/en/developer-terms/agreement-and-policy) before agreeing to them.
 * Once you've created your application, click to generate an access token and access token secret.
 * You should now have the following 4 things: consumer key, consumer secret, access token and access token secret. Leave the window open because you'll need this info to configure twarc.
 
-## Step 3: Install Python 2.7.14 or higher (if you don't have it already) 
+## Step 3: Install Python 3+ (if you don't have it already)
 
-1. Open a command prompt window on your computer. On a Mac, this is your Terminal application (located in the Utlities folder). On Windows, is the command prompt (right click on Start button). 
+1. Open a command prompt window on your computer. On a Mac, this is your Terminal application (located in the Utilities folder). On Windows, is the command prompt (right click on Start button).
 2. Type `python --version` to see what version of Python your computer recognizes
-3. If you don't have Python 2.7.14+, download and install [Python](http://python.org/download)
-4. Type `python --version ` again in the command prompt 
-5. You should see the most recent version of Python that you installed. If you don't, your computer is not finding it. if that is the case with you, [follow these directions](). 
-6. Now, type `pip install twarc` to install twarc from `pip`. (if upgrading, type: `pip install --upgrade twarc`)
-   **NOTE: if you have Python 3+ installed, type `pip3 install twarc`**
+3. If you don't have Python 3+, download and install [Python 3](http://python.org/download)
+4. After installing, type `python3 ` in the command prompt.
+5. Now, type `pip3 install twarc` to install twarc from `pip`. (if upgrading, type: `pip3 install --upgrade twarc`)
 
-Troubleshooting: 
+Troubleshooting:
 
-* `pip: command not found` -- this means that your computer can't find pip. If you have Python 3, type `pip3` instead of `pip`. If this doesn't work, it may be that your computer doesn't recognize the newest version of Python you have installed. 
-* `permission denied` errors -- you may have trouble installing stuff into root directories depending on how your computer is configured. If you already know how to use the command line, you can go in and [change your file permissions](https://www.computerhope.com/unix/uchmod.htm) so that you have admin access to certain folders on your computer. Another way around this is to type `sudo` before commands, which will prompt you to enter your admin password.
+* `pip3: command not found` -- this means that your computer can't find pip3. This package installed with python 3, so it should automatically be there. To manually install pip, [follow these directions](https://pip.pypa.io/en/stable/installing/).
+* `permission denied` errors -- you may have trouble installing stuff into root directories depending on how your computer is configured. If you already know how to use the command line, you can go in and [change your file permissions](https://www.computerhope.com/unix/uchmod.htm) so that you have admin access to certain folders on your computer. Another way around this is to type `sudo` before commands, which will prompt you to enter your admin password. Example:
+`sudo pip3 install twarc`
 
-## Step 4: Configure Twarc
+## Step 4: Navigate to Your Twarc directory
+Open a terminal (or command line) application.
 
-Once you've got twarc installed and your your application keys from Twitter, you can tell twarc what they are with the
-`configure` command. On the command line, type
+* Mac users: Go to your Applications Folder. Open **Utilities**. Now open the **Terminal**.
 
-    twarc configure
+* Windows users: Click the lower-left **Start** button to open the Start Menu, and type **cmd** down in the white box. You should see "Command Prompt" appear in a list of results. Click to open.
+
+* Once the terminal opens, you'll see a blank screen with a prompt at the top.
+
+* Navigate to your twarc-tutorial folder by typing the following into the command prompt: `cd documents/twarc-tutorial-master` and hitting enter.
+
+* Now, type `pwd` and hit enter to make sure you're in the twarc-tutorial-master folder.
+
+
+## Step 5: Configure Twarc
+
+Once you've got twarc installed and your your application keys from Twitter, you can tell twarc what they are with the `configure` command. On the command line, type:
+
+`twarc configure`
 
 This will store your credentials in a file called `.twarc` in your home
 directory so you don't have to keep entering them in. If you would rather supply
@@ -59,11 +76,25 @@ them directly you can set them in the environment (`CONSUMER_KEY`,
 options (`--consumer_key`, `--consumer_secret`, `--access_token`,
 `--access_token_secret`).
 
-### Step 5: Search for Tweets
+## Step 6: Harvest Some Tweets
 
-This uses Twitter's [search/tweets](https://dev.twitter.com/rest/reference/get/search/tweets) to download *pre-existing* tweets matching a given query.
+This section uses Twitter's [search/tweets](https://dev.twitter.com/rest/reference/get/search/tweets) to download *pre-existing* tweets matching a given query. If you just let it run, you'll get a large file of 100+ MB. We're only going to let it run a little while.
 
-    twarc search blacklivesmatter > tweets.jsonl
+##### Run a Search
+
+Let's harvest some tweets about the **flu**:
+
+Type `twarc search flu > tweets.json`
+
+Let it run a minute, and then type `CTRL + C` to stop the harvest
+
+##### Explore Tweets
+
+To see how many tweets you have, type:
+
+`wc -l tweets.json`
+
+To see what's in the file, type `cat tweets.json`
 
 It's important to note that `search` will return tweets that are found **within a
 7 day window** that Twitter's search API imposes. If this seems like a small
@@ -72,33 +103,89 @@ using the `filter` and `sample` commands below.
 
 The best way to get familiar with Twitter's search syntax is to experiment with
 [Twitter's Advanced Search](https://twitter.com/search-advanced) and copy and
-pasting the resulting query from the search box. For example here is a more
+pasting the resulting query from the search box.
+
+
+## Step 7: Remove RTs and Deduplicate
+In the utils folder are some handy utilities you can use to process your file.
+
+To remove retweets, type `utils/noretweets.py > noretweets.json`
+
+To remove duplicate tweets, type
+`utils/deduplicate.py noretweets.json > nodupes.json`
+
+To remove potentially sensitive tweets (optional), type
+`utils/sensitive.py nodupes.json > nosensitive.json`
+
+To see how many tweets you have in any of these files, you can use the following command:
+
+`wc -l`
+
+## Step 8: Make a wordcloud
+Type the following command:
+
+`utils/wordcloud.py tweets.json > wordcloud.html`
+
+If you go into your files from the graphical/windows interface (not the command line) and click on wordcloud.html, it will open in a browser and you'll see the wordcloud.
+
+## Step 9: Create a tweet wall
+
+Type `utils/wall.py  tweets.json > wall.html` to create an html file where the tweets will be displayed like cards in a browser window.
+
+## Step 10: Take a subset of tweets harvested
+
+The command below will save 100 tweets to a new file called search100.json
+
+`head -100 nosensitive.json > search100.json`
+
+## Step 11: Convert JSON to csv
+Google search for "JSON to CSV converter"
+
+Here's an example: https://json-csv.com/
+
+Drop your search100.json file in here and convert your tweet file to a CSV (won't work with larger files)
+
+After downloading your CSV file, you can open it in Excel.
+
+## More Options
+### JSONL
+Twarc official documentation suggests saving files to .jsonl files. Example:
+
+`twarc search '#blacklivesmatter > tweets.jsonl`
+
+The challenge with `.jsonl` files is that they are harder to convert to other file types, such as CSV, without knowing how to code.
+
+The **following** examples use `.jsonl` extensions, but can also be used with `.json` extensions.
+
+### More Complex Searches
+
+Here is a more
 complicated query that searches for tweets containing either the
 \#blacklivesmatter or #blm hashtags that were sent to deray.
 
-    twarc search '#blacklivesmatter OR #blm to:deray' > tweets.jsonl
+  `twarc search '#blacklivesmatter OR #blm to:deray' > tweets.jsonl`
 
 Twitter attempts to code the language of a tweet, and you can limit your search
 to a particular language if you want:
 
-    twarc search '#blacklivesmatter' --lang fr > tweets.jsonl
+  `twarc search '#blacklivesmatter' --lang fr > tweets.jsonl`
 
 You can also search for tweets with a given location, for example tweets
 mentioning *blacklivesmatter* that are 1 mile from the center of Ferguson,
 Missouri:
 
-    twarc search blacklivesmatter --geocode 38.7442,-90.3054,1mi > tweets.jsonl
+  `twarc search blacklivesmatter --geocode 38.7442,-90.3054,1mi > tweets.jsonl`
 
 If a search query isn't supplied when using `--geocode` you will get all tweets
 relevant for that location and radius:
 
-    twarc search --geocode 38.7442,-90.3054,1mi > tweets.jsonl
+  `twarc search --geocode 38.7442,-90.3054,1mi > tweets.jsonl`
 
-### Step 6: Filter
+### Filter
 
 The `filter` command will use Twitter's [statuses/filter](https://dev.twitter.com/streaming/reference/post/statuses/filter) API to collect tweets as they happen.
 
-    twarc filter blacklivesmatter,blm > tweets.jsonl
+`twarc filter blacklivesmatter,blm > tweets.jsonl`
 
 Please note that the syntax for the Twitter's track queries is slightly
 different than what queries in their search API. So please consult the
@@ -123,7 +210,7 @@ CNN:
 
     twarc filter blacklivesmatter,blm --follow 759251 > tweets.jsonl
 
-### Step 7: Sample
+### Sample
 
 Use the `sample` command to listen to Twitter's [statuses/sample](https://dev.twitter.com/streaming/reference/get/statuses/sample) API for a "random" sample of recent public statuses.
 
@@ -284,81 +371,81 @@ script that you find handy please send a pull request.
 
 When you've got some tweets you can create a rudimentary wall of them:
 
-    % utils/wall.py tweets.jsonl > tweets.html
+    % `utils/wall.py tweets.jsonl > tweets.html`
 
 You can create a word cloud of tweets you collected about nasa:
 
-    % utils/wordcloud.py tweets.jsonl > wordcloud.html
+    % `utils/wordcloud.py tweets.jsonl > wordcloud.html`
 
 If you've collected some tweets using `replies` you can create a static D3
 visualization of them with:
 
-    % utils/network.py tweets.jsonl tweets.html
+    % `utils/network.py tweets.jsonl tweets.html`
 
 Optionally you can consolidate tweets by user, allowing you to see central accounts:
 
-    % utils/network.py --users tweets.jsonl tweets.html
+    % `utils/network.py --users tweets.jsonl tweets.html`
 
 And if you want to use the network graph in a program like [Gephi](https://gephi.org/),
 you can generate a GEXF file with the following:
 
-    % utils/network.py --users tweets.jsonl tweets.gexf
+    % `utils/network.py --users tweets.jsonl tweets.gexf`
 
 gender.py is a filter which allows you to filter tweets based on a guess about
 the gender of the author. So for example you can filter out all the tweets that
 look like they were from women, and create a word cloud for them:
 
-    % utils/gender.py --gender female tweets.jsonl | utils/wordcloud.py > tweets-female.html
+    % `utils/gender.py --gender female tweets.jsonl | utils/wordcloud.py > tweets-female.html`
 
 You can output [GeoJSON](http://geojson.org/) from tweets where geo coordinates are available:
 
-    % utils/geojson.py tweets.jsonl > tweets.geojson
+    % `utils/geojson.py tweets.jsonl > tweets.geojson`
 
 Optionally you can export GeoJSON with centroids replacing bounding boxes:
 
-    % utils/geojson.py tweets.jsonl --centroid > tweets.geojson
+    % `utils/geojson.py tweets.jsonl --centroid > tweets.geojson`
 
 And if you do export GeoJSON with centroids, you can add some random fuzzing:
 
-    % utils/geojson.py tweets.jsonl --centroid --fuzz 0.01 > tweets.geojson
+    % `utils/geojson.py tweets.jsonl --centroid --fuzz 0.01 > tweets.geojson`
 
 To filter tweets by presence or absence of geo coordinates (or Place, see [API documentation](https://dev.twitter.com/overview/api/places)):
 
-    % utils/geofilter.py tweets.jsonl --yes-coordinates > tweets-with-geocoords.jsonl
-    % cat tweets.jsonl | utils/geofilter.py --no-place > tweets-with-no-place.jsonl
+    % `utils/geofilter.py tweets.jsonl --yes-coordinates > tweets-with-geocoords.jsonl`
+    % `cat tweets.jsonl | utils/geofilter.py --no-place > tweets-with-no-place.jsonl`
 
 To filter tweets by a GeoJSON fence (requires [Shapely](https://github.com/Toblerity/Shapely)):
 
-    % utils/geofilter.py tweets.jsonl --fence limits.geojson > fenced-tweets.jsonl
-    % cat tweets.jsonl | utils/geofilter.py --fence limits.geojson > fenced-tweets.jsonl
+    % `utils/geofilter.py tweets.jsonl --fence limits.geojson > fenced-tweets.jsonl`
+    % `cat tweets.jsonl | utils/geofilter.py --fence limits.geojson > fenced-tweets.jsonl`
 
 If you suspect you have duplicate in your tweets you can dedupe them:
 
-    % utils/deduplicate.py tweets.jsonl > deduped.jsonl
+    % `utils/deduplicate.py tweets.jsonl > deduped.jsonl`
 
 You can sort by ID, which is analogous to sorting by time:
 
-    % utils/sort_by_id.py tweets.jsonl > sorted.jsonl
+    % `utils/sort_by_id.py tweets.jsonl > sorted.jsonl`
 
 You can filter out all tweets before a certain date (for example, if a hashtag was used for another event before the one you're interested in):
 
-    % utils/filter_date.py --mindate 1-may-2014 tweets.jsonl > filtered.jsonl
+    % `utils/filter_date.py --mindate 1-may-2014 tweets.jsonl > filtered.jsonl`
 
 You can get an HTML list of the clients used:
 
-    % utils/source.py tweets.jsonl > sources.html
+    % `utils/source.py tweets.jsonl > sources.html`
 
 If you want to remove the retweets:
 
-    % utils/noretweets.py tweets.jsonl > tweets_noretweets.jsonl
+    % `utils/noretweets.py tweets.jsonl > tweets_noretweets.jsonl`
 
 Or unshorten urls (requires [unshrtn](https://github.com/edsu/unshrtn)):
 
-    % cat tweets.jsonl | utils/unshorten.py > unshortened.jsonl
+    % `cat tweets.jsonl | utils/unshorten.py > unshortened.jsonl`
 
 Once you unshorten your URLs you can get a ranked list of most-tweeted URLs:
 
-    % cat unshortened.jsonl | utils/urls.py | sort | uniq -c | sort -nr > urls.txt
+    % `cat unshortened.jsonl | utils/urls.py | sort | uniq -c | sort -nr > urls.txt`
 
 ## twarc-report
 
