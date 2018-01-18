@@ -29,7 +29,7 @@ You will need a Twitter account and a registered Twitter application at [apps.tw
 * Sign in to [apps.twitter.com](http://apps.twitter.com) with your Twitter Account.
 * Click **Create New App** button
 * Give your App a unique title and write an concise and honest description about what it is.
-* Include a link where you can lean more about your app. Use can use the URL to your twarc tutorial repo that you forked. Ex: http://github.com/YOURUSERNAME/twarc-tutorial
+* Include a link where you can lean more about your app. You can use the URL to this repository for now, but if you make a project out of this tweet harvest, you will want to change it to your own URL. 
 * Leave the Callback URL window empty.
 * Make sure to read the [Twitter Developer Terms](https://developer.twitter.com/en/developer-terms/agreement-and-policy) before agreeing to them.
 * Once you've created your application, click to generate an access token and access token secret.
