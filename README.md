@@ -147,7 +147,7 @@ Drop your search100.json file in here and convert your tweet file to a CSV (won'
 
 After downloading your CSV file, you can open it in Excel.
 
-## More Options
+## More Options. 
 ### JSONL
 Twarc official documentation suggests saving files to .jsonl files. Example:
 
@@ -158,6 +158,7 @@ The challenge with `.jsonl` files is that they are harder to convert to other fi
 The **following** examples use `.jsonl` extensions, but can also be used with `.json` extensions.
 
 ### More Complex Searches
+### Note: the content below was created by DocNow - see at https://github.com/DocNow/twarc):
 
 Here is a more
 complicated query that searches for tweets containing either the
